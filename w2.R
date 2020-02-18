@@ -74,26 +74,34 @@ gf3=function(x){
   return(gf1(x)/(epsilon+f1(x)))
 }
 
+#hf3=function(x){
+#  epsilon=10^{-16}
+#  alpha=1000
+#  d=length(x)
+#  H=matrix(0,nrow=d,ncol=d)
+#  k2=0
+#  for (k in 1:d){
+#    k2= k2+alpha^((k-1)/(d-1))*x[k]^2
+#  }
+#  for(i in 1:d){
+#      for(j in 1:d){
+#        if(j!=i){
+#        H[i,j]= (-4*x[i]*x[j]*alpha^((j+i-2)/(d-1)))/(epsilon+k2)^2
+#          }}
+#      H[i,i]=(2*alpha^((i-1)/(d-1))*(epsilon+k2)-(2*alpha^((i-1)/(d-1))*x[i])^2)/((epsilon+k2)^2)
+#  }
+#  H
+#}
+########this is nicer v
 hf3=function(x){
   epsilon=10^{-16}
   alpha=1000
-  d=length(x)
-  H=matrix(0,nrow=d,ncol=d)
-  k2=0
-  for (k in 1:d){
-    k2= k2+alpha^((k-1)/(d-1))*x[k]^2
-  }
-  for(i in 1:d){
-      for(j in 1:d){
-        if(j!=i){
-        H[i,j]= (-4*x[i]*x[j]*alpha^((j+i-2)/(d-1)))/(epsilon+k2)^2
-          }}
-      H[i,i]=(2*alpha^((i-1)/(d-1))*(epsilon+k2)-(2*alpha^((i-1)/(d-1))*x[i])^2)/((epsilon+k2)^2)
-  }
-  H
+  return(hf1(x)/(epsilon+f1(x))-gf1(x)%*%t(gf1(x))/(epsilon+f1(x))^2)
 }
-
+hf4(x0)
+hf4
 hf3( x0)
+
 eigen(hf3( x0))$values
 te
 te[1,2]
