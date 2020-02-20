@@ -1,3 +1,6 @@
+x=-10:10
+y=x
+xs=expand.grid(x,y)
 newt3=function(f,g,h,x){ #newt with BLS and eigenvalue transformation
   d=length(x)
   maxit=50
@@ -49,6 +52,8 @@ xs
 #############################################################################
 #####################################
 #graddesc
+bls1 
+
 graddesc2=function(f,g,x){
   d=length(x)
   maxit=20000
@@ -85,8 +90,8 @@ plotterg2=function(f,g,xs){  #for newtons
   zs=melt(zs1, id.vars='xes',variable.name='Function')
   ggplot(zs,aes(x=xes,y=value,colour=Function))+geom_line()+labs(x="Iteration",y="log(norm(grad f))" , title=paste("Steepest descent on",as.character(substitute(f))), subtitle="with x1,x2 in (-10,10)")
 }
-plotterg2(f1,gf1,xs)
-plotterg2(f2,gf2,xs)
+plotterg2(f1,gf1,xs) #change maxit to 5k 
+plotterg2(f2,gf2,xs) #maxit 15000
 plotterg2(f3,gf3,xs)
 plotterg2(f4,gf4,xs)
 plotterg2(f5,gf5,xs)
