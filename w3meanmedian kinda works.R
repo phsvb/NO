@@ -31,13 +31,16 @@ plottern2=function(f,g,h,xs){  #for newtons
       zs[j,i]=(norm(g(ys[,i]),"2"))
     }
   }
-  zs=log(colMeans(zs))#[1:200]#/dim(xs)[1]
-  xes=(1:length(zs)-1)#[1:200]
-  zs1=data.frame(xes,zs)
-  zs=melt(zs1, id.vars='xes')
-  ggplot(zs,aes(xes,value))+geom_line()+labs(x="Iteration",y="log(norm(grad f))" , title=paste("Newton on",as.character(substitute(f))), subtitle="with x1,x2 in (-10,10)")
+  medianf=log(colMedians(zs)) #prevoius zs=log(colmed(zs))
+  meanf=log(colMeans(zs)) #  in r*2
+  xes=(1:length(meanf)-1)#[1:200] #in r^200
+  zs1=data.frame(xes,medianf,meanf)
+  zs=melt(zs1, id.vars='xes',variable.name='Function')
+  ggplot(zs,aes(x=xes,y=value,colour=Function))+geom_line()+labs(x="Iteration",y="log(norm(grad f))" , title=paste("Newton on",as.character(substitute(f))), subtitle="with x1,x2 in (-10,10)")
 }
-plottern2(f2,gf2,hf2,xs) #means
-#change means, medians. perhabs maxit
-
-plottern2(f2,gf2,hf2,xs) #medians
+plottern2(f1,gf1,hf1,xs) 
+plottern2(f2,gf2,hf2,xs) 
+plottern2(f3,gf3,hf3,xs) 
+plottern2(f4,gf4,hf4,xs) 
+plottern2(f5,gf5,hf5,xs) 
+xs
